@@ -1,0 +1,29 @@
+svg{
+    background-color:#E6E6E6;
+    display: block;
+	float: right;
+}
+svg1{
+    background-color:black;
+    display: block;
+	float: left;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orangered;
+}
+
+x.axis path {
+  display: none;
+}
+.axis text{
+    font: Times;
+    font-size: 9px;
+    font-weight: bold;
+}

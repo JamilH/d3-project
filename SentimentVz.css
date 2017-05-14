@@ -1,0 +1,34 @@
+body {
+  color: darkgrey; 
+  background: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left:90px;
+  margin-right:90px;
+  font-weight: 200;
+  font-size: 15px;
+}
+
+text {
+  cursor: default;
+}
+
+.caption {
+    font-weight: bold;
+}
+
+svg{ background: #ddd; border: 10px solid lightgrey;}
+.clergy-red{stroke: red; stroke-width:3}
+.clergy-green{stroke: green; stroke-width:3}
+.tooltip {
+    position: fixed;
+    text-align: left;
+    padding: 10px;
+    font: 12px sans-serif;
+    background: midnightblue;
+    border: 2px;
+    border-radius: 20px;
+    pointer-events: none;
+	transition: all 0.2s ease-in 0s; 
+}
+.tooltip .name{ text-align:left; display: block; }
+.legend{font-size: 11px; fill: #9c9797}

@@ -1,0 +1,56 @@
+body {
+  color: darkgrey; 
+  background: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left:90px;
+  margin-right:90px;
+  font-weight: 200;
+  font-size: 15px;
+}
+
+text {
+  cursor: default;
+}
+
+.caption {
+    font-weight: bold;
+}
+
+svg{ background: #ddd; border: 10px solid lightgrey;}
+.clergy-red{stroke: red; stroke-width:1}
+.clergy-green{stroke: green; stroke-width:1}
+.tooltip .dumClass {
+    z-index: 10;
+    display: none;
+    padding: 14px 20px;
+    margin-top: -142px;
+    margin-left: -33px;
+    width: 240px;
+    line-height: 16px;
+    position: absolute;
+}
+
+.tooltip:hover .dumClass {
+    display: inline;
+    color: #ffffff;
+    border: 1px solid #DCA;
+    background: #444;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+}
+
+.dumClass:after {
+    position: absolute;
+    display: block;
+    content: "";
+    border-style: solid;
+    border-width: 8px;
+    height: 0;
+    width: 0;
+    border-color: #444 transparent transparent transparent;
+    bottom: -16px;
+    left: 14px;
+}
+.tooltip .name{ text-align:left; display: block; }
+.legend{font-size: 6px; fill: #9c9797}

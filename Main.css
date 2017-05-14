@@ -1,0 +1,127 @@
+body {
+  color: darkgrey; 
+  background: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left:90px;
+  margin-right:90px;
+  font-weight: 200;
+  font-size: 15px;
+    zoom: 83%;
+    }
+circle {
+    stroke: #000;
+}
+.x.axis path {
+    fill: none;
+    
+}
+
+.x.axis text {
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif;
+    font-size: 18px;
+    position: absolute;
+}
+
+.label {
+    fill: "black";
+}
+.y.axis path {
+    fill: none;
+}
+.y.axis text {
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif;
+    font-size: 18px;
+}
+
+.tick line {
+    opacity: 0.2;
+    stroke: black;
+    stroke-width: 1px;
+    
+}
+
+
+/*===========Tooltip CSS================*/
+div.tooltip {
+    pointer-events:none;
+    line-height: 1;
+    background: #ff9966;
+    border: 0px;
+    border-radius: 15px;
+    color: #000;
+    display: block;
+    padding: 10px;
+    position: absolute;
+
+    width: 400px;
+    -webkit-transition: all .25s ease-out;
+    -moz-transition: all .25s ease-out;
+    -ms-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    overflow:visible;
+}
+div.tooltip right{
+    float: right;
+    color: #000;
+    line-height: 1;
+}
+div.tooltip img{
+    float: left;
+    border-radius: 15px;
+    margin-left:1%;
+    margin-right:20px;
+    width: 120px;
+    height: 150px;
+    position: relative;
+    
+}
+/*-----------footer----------*/
+
+/*entire footer background color*/
+footer{
+    width: 100%;
+    background-color: grey;
+    padding: 80px 0px 10px 0px;
+}
+/*Web links colors*/
+a:link {
+    color: white;  
+}
+/* visited link */
+a:visited {
+    color: white;
+}
+/* mouse over link */
+a:hover {
+    color: black;
+}
+/*-----------footer_wrapper----------*/
+/*column content*/
+.footer_wrapper nav ul{
+    margin-top: -70px;
+    list-style-type: circle;
+    margin-left: 60px;
+    width: 200px;
+    padding: 1px;
+    font-family: lucida console;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    
+}
+.footer_wrapper nav {
+    vertical-align: top;
+    width: 16%;
+    display: inline-block;
+}
+.footer_wrapper nav ul li {
+   float: middle;
+   width:200px; 
+   padding: 5px; 
+}
