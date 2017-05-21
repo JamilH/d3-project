@@ -6,6 +6,33 @@ var margin = {top: 30, right: 80, bottom: 60, left: 80},
   imageHeight = imageWidth = circleRadius * 2,
   legends = [{'color': 'green', 'text': 'Most Hated'}, {'color': 'red', 'text': 'Most Liked'}];
 
+var tooltip_width = 400;
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([20, 0])
+  .direction('s')
+  .html(function(d) {
+    return createTooltipHTML(d);
+  })
+
+var tip2 = d3.tip()
+  .attr('class', 'd3-tip-top')
+  .offset([-140, 0])
+  .direction('n')
+  .html(function(d) {    
+    return createTooltipHTML2(d);
+  });
+
+var tip3 = d3.tip()
+  .attr('class', 'd3-tip-top')
+  .offset([-140, 0])
+  .direction('n')
+  .html(function(d) {    
+    return createTooltipHTML3(d);
+  });
+
+
 var svg = d3.select('.chart')
   .append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -14,6 +41,11 @@ var svg = d3.select('.chart')
   .append('g')
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+svg.call(tip);
+svg.call(tip2);
+svg.call(tip3)
+
 d3.csv('./timeline.csv', function(err, data){
   if (err) throw err;
 
@@ -21,7 +53,7 @@ d3.csv('./timeline.csv', function(err, data){
   var data = data.map( (d) => {
     var cleanDatum = {};
     d3.keys(d).forEach(function(k) {
-      if(d[k])
+      if(d[k])  
         cleanDatum[k.trim()] = d[k].trim();
     });
     return cleanDatum;
@@ -35,33 +67,25 @@ d3.csv('./timeline.csv', function(err, data){
     d.Deathdate = +d.Deathdate;
     d.Rank      = +d.Rank;
     id++;
+
   });
 
 	
-  // define the tooltip container
-  var tipContainer = d3.select('body').append('div')
-    .attr("id", "tooptip_content")
-        .style("position", "absolute")
-       .style("x-index", "20") // z-index or "bring-to-top"
-        .style("visibility", "visible") //"visible" was originally "hidden"
-        .attr("font-size", "20px")
-        .style("color", "white").attr('class', 'tooltip')
-    .style('opacity', 0);
-
   // build the x axis
   var xScale = d3.scaleLinear()
     .domain([d3.min(data, d => d.Birthdate), new Date().getFullYear()])
     .range([0, width])
     .nice();
 
-  var xAxis = d3.axisTop(xScale)
-    .ticks(10);
+  var xAxis = d3.axisBottom(xScale)
+    .ticks(10)
+    .tickFormat(d3.format("d"));
 
 
   var gX = svg
     .append('g')
       .attr('id', 'x-axis')
-       .attr("transform", "translate(0," + height + ")")
+       .attr("transform", "translate(0," + 3*margin.top + ")")
     .call(xAxis);
 
   // do the dirty work ;) build the plot
@@ -75,6 +99,8 @@ d3.csv('./timeline.csv', function(err, data){
     .enter()
     .append('g')
       .attr('class', 'clergy')
+      // .attr('x', d => `${xScale(d.Birthdate)}`)
+      // .attr('y', `${yScaleValue}`);
       .attr('transform', d => {
         return `translate(${xScale(d.Birthdate)}, ${yScaleValue})`;
       });
@@ -94,30 +120,38 @@ d3.csv('./timeline.csv', function(err, data){
       .attr('height', imageHeight)
       .attr('xlink:href', d => d.Image);
 
+
+  var tips_show = function(d){
+    
+    tip.show(d);
+
+    var x = `${xScale(d.Birthdate)}`
+    var x2 = `${xScale(d.Deathdate)}`;  
+    var delta = x2 - x;
+
+    tip2.show(d);
+
+    if(d.Deathdate){      
+      tip3.offset([-140, delta]);
+      tip3.show(d);
+    }    
+    
+  }
+  var tips_hide = function(d){
+    tip.hide(d);
+    tip2.hide(d);
+    tip3.hide(d);
+  }
   // create circles and fill with corresponding images
-  circles
+   circles
     .append('circle')
       .attr('r', circleRadius)
       .attr('cx', 0)
       .attr('cy', 0)
       .attr('class', d => d.Rank ? 'clergy-green' : 'clergy-red')
       .style('fill', d => d.Image ?`url(#${d.id})` : 'steelblue')
-    // .style('fill-opacity', 0.5)
-    .on('mouseover', function(d, i){
-      tipContainer
-        .transition()
-          .duration(200)
-          .style('opacity', .9);
-      tipContainer
-        .html(createTooltipHTML(d))
-        .style('left', `${d3.event.pageX}px`)
-        .style('top', `${d3.event.pageY - 50}px`);
-    })
-    .on('mouseout', function(d, i){
-      tipContainer.transition()
-        .duration(500)
-        .style('opacity', 0);
-    });
+      .on('mouseover', tips_show)
+      .on('mouseout', tips_hide);
 
     // build legends
   var legend = svg
@@ -168,10 +202,23 @@ function createTooltipHTML(d){
   //   tweets += t;
   // });
   return (
-    `<span style='color:orange'>${d.ClergyName}</span> <hr />
-    ${d.ClergyDetails}<br />
-    <span style='color:orange'>Birth:</span> ${d.Birthdate} <br />
-    <span style='color:orange'>Death:</span> ${d.Deathdate ? d.Deathdate : 'n/a'} <hr />
+    `<span style='color:orange'> ${d.ClergyName}  </span>
+    <span style="float: right">
+      <span style='color:orange'>Birth:</span> ${d.Birthdate}
+    </span>    
+
+    <br />
+
+    <span style="float: right">
+      <span style='color:orange'>Death:</span> ${d.Deathdate ? d.Deathdate : 'n/a'}
+    </span>    
+
+    <br />
+
+    <hr />
+    ${d.ClergyDetails}
+    <br />
+    <hr />
     <span style='color:orange'>Facts:</span> <br />
     1. ${d.F1? d.F1 : 'n/a'}<br />
     2. ${d.F2? d.F2 : 'n/a'}<hr />
@@ -186,6 +233,24 @@ function createTooltipHTML(d){
     3. ${d.T3? d.T3: 'n/a'}<hr />`
   );
 }
+
+
+function createTooltipHTML2(d){
+
+  return (
+    `<span style='color:black'>\u25BC</span>`
+  );
+
+}
+
+function createTooltipHTML3(d){
+
+  return (
+    `<span style='color:black'>\u25BC</span>`
+  );
+
+}
+
 
 // Make chart responsive using viewBox
 function responsivefy(svg) {
