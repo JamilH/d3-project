@@ -34,7 +34,7 @@ svg3.append("text")
         .style("fill", "grey")
         ;
 
-
+/*
 d3.csv("tweetcount1.csv",function(error, data){
     data.forEach(function(d) {
         d.letter= d.letter;
@@ -97,4 +97,4 @@ svg2.selectAll('text')
 
 
 });
-
+*/
