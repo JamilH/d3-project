@@ -7,10 +7,36 @@
 	</head>
 <body>
 
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    .d3-tip {
+      line-height: 1;
+      font-weight: bold;
+      font: 12px sans-serif;
+      text-align: left;
+      padding: 12px;
+      background: midnightblue;
+      color: #fff;
+      border: 2px;
+      border-radius: 20px;
+      width: 500px;
+    }
+
+    .d3-tip-top {
+      box-sizing: border-box;
+      display: inline;
+      font-size: 14px;
+      width: 100%;
+      line-height: 1;
+      color: rgba(0, 0, 0, 0.8);
+      content: "\25BC";
+      position: absolute;
+      text-align: center;
+    }    
+  </style>
 
 
-    
+    <script src="d3.v4.min.js"></script>
+    <script src="d3.tip.js"></script>
 
     <p>ISIS is the latest iteration of faith-based violent extremism that have grown out of the rubble of the Syrian civil war and post-occupation Iraq. While social media has been used to launch revolutions against tyrannical regimes, it is also being used by groups such as ISIS to spread their message of hate, recruit susceptible youth, and project power all over the world.There is
 	a need to fight against violent extremists at home and abroad. </p>
